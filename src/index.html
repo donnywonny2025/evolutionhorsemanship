@@ -84,7 +84,7 @@
     <!-- Video Showcase -->
     <div class="video-showcase reveal">
       <div class="video-frame" id="symposium-video">
-        <video id="promo-video" muted loop playsinline preload="auto">
+        <video id="promo-video" controls muted loop playsinline preload="auto">
           <source src="media/coming_soon.mp4" type="video/mp4">
         </video>
         <div class="video-overlay" id="video-overlay">
@@ -358,18 +358,21 @@
     const promoVideo = document.getElementById('promo-video');
     const videoOverlay = document.getElementById('video-overlay');
     if (promoVideo && videoOverlay) {
+      // Hide native controls initially (overlay covers them)
+      promoVideo.removeAttribute('controls');
+
       videoOverlay.addEventListener('click', () => {
+        promoVideo.setAttribute('controls', '');
         promoVideo.play();
         videoOverlay.classList.add('hidden');
       });
-      promoVideo.addEventListener('click', () => {
-        if (promoVideo.paused) {
-          promoVideo.play();
-          videoOverlay.classList.add('hidden');
-        } else {
-          promoVideo.pause();
-          videoOverlay.classList.remove('hidden');
-        }
+
+      // Show overlay again when video ends or is paused via native controls
+      promoVideo.addEventListener('pause', () => {
+        videoOverlay.classList.remove('hidden');
+      });
+      promoVideo.addEventListener('play', () => {
+        videoOverlay.classList.add('hidden');
       });
     }
   </script>
