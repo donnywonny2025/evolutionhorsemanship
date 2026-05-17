@@ -138,12 +138,12 @@ img {
   align-items: center;
   padding: 14px 0 0;
   background: linear-gradient(180deg, rgba(12, 20, 14, 0.9) 0%, rgba(12, 20, 14, 0.6) 100%);
-  transition: all 0.5s var(--ease-out);
+  transition: background 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
 }
 
 .site-header.scrolled {
   padding: 8px 0 0;
-  background: rgba(12, 20, 14, 0.95);
+  background: rgba(12, 20, 14, 0.97);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 }
 
