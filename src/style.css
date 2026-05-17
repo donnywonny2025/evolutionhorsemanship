@@ -934,6 +934,10 @@ img {
 .contact-info {
   padding-right: clamp(32px, 4vw, 64px);
   border-right: 1px solid rgba(181, 149, 90, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .contact-info .label,
@@ -972,6 +976,7 @@ img {
 .contact-item {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 14px;
   font-family: var(--font-body);
   font-size: var(--fs-body);
@@ -1621,6 +1626,11 @@ a.contact-item:hover {
   padding-right: var(--space-lg);
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .sanctuary-visual {
@@ -1648,6 +1658,7 @@ a.contact-item:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: left center; /* Prevent horse from being cut off on the right */
   transition: transform 1s ease;
 }
 
@@ -1948,6 +1959,8 @@ a.contact-item:hover {
   object-fit: cover;
   object-position: center top;
 }
+
+
 
 .visionary-content {
   flex: 1;
