@@ -9,6 +9,10 @@
   <meta property="og:description" content="Home of The Horseman Symposium. Find true connection with yourself, your horse, and others.">
   <meta property="og:type" content="website">
   <link rel="stylesheet" href="style.css">
+  <script>
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+  </script>
 </head>
 <body>
 
@@ -46,10 +50,11 @@
       who put the horse first.</p>
       <a href="#symposium" class="hero-cta">Learn More</a>
     </div>
-    <div class="hero-scroll-hint">
-      <span>Discover</span>
-      <div class="scroll-line"></div>
-    </div>
+    <a href="#symposium" class="hero-scroll-cue" aria-label="Scroll to explore">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </a>
   </section>
 
   <!-- ===== THE HORSEMAN SYMPOSIUM ===== -->
