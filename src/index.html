@@ -8,7 +8,7 @@
   <meta property="og:title" content="Evolution Horsemanship — Ocala, Florida">
   <meta property="og:description" content="Home of The Horseman Symposium. Find true connection with yourself, your horse, and others.">
   <meta property="og:type" content="website">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=18">
   <script>
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
@@ -35,6 +35,30 @@
     </button>
   </header>
 
+  <!-- ===== BGM PLAYER WIDGET ===== -->
+  <div class="bgm-player" id="bgm-player">
+    <button class="bgm-btn" id="bgm-btn" aria-label="Play background music">
+      <svg class="bgm-icon-play" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="5,3 19,12 5,21"/>
+      </svg>
+      <svg class="bgm-icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <rect x="6" y="4" width="4" height="16"/>
+        <rect x="14" y="4" width="4" height="16"/>
+      </svg>
+    </button>
+    <div class="bgm-info">
+      <span class="bgm-title">Sailing</span>
+      <span class="bgm-artist">Christopher Cross</span>
+    </div>
+    <div class="bgm-waveform" id="bgm-waveform">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <!-- Hidden YT Player -->
+    <div id="yt-player-container" style="position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;">
+      <div id="yt-player"></div>
+    </div>
+  </div>
+
   <!-- ===== HERO ===== -->
   <section class="hero" id="hero">
     <div class="hero-bg">
@@ -43,12 +67,35 @@
       </video>
     </div>
     <div class="hero-content">
-      <div class="eyebrow">March 28–29, 2026 — Ocala, Florida</div>
-      <h1>The Horseman<br>Symposium</h1>
+      <div class="anim-wrap wrap-1"><div class="eyebrow">March 28–29, 2026 — Ocala, Florida</div></div>
+      <div class="anim-wrap wrap-2"><h1>The Horseman<br>Symposium</h1></div>
       <div class="hero-divider"></div>
-      <p>A bold international gathering bringing you the best horsemen<br>
-      who put the horse first.</p>
-      <a href="#symposium" class="hero-cta">Learn More</a>
+      
+      <!-- Video Showcase moved to hero -->
+      <div class="anim-wrap wrap-3">
+        <div class="video-showcase hero-video-box">
+          <div class="video-frame" id="symposium-video">
+            <video id="promo-video" controls muted loop playsinline preload="auto">
+              <source src="media/coming_soon.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay" id="video-overlay">
+              <button class="play-btn" id="play-btn" aria-label="Play video">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <polygon points="6,3 20,12 6,21" fill="currentColor"/>
+                </svg>
+              </button>
+              <span class="video-caption" style="color: var(--cream);">Watch the Preview</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="anim-wrap wrap-4"><p>A bold international gathering bringing you the best horsemen<br>
+      who put the horse first.</p></div>
+      
+      <div class="anim-wrap wrap-5">
+        <a href="#symposium" class="hero-cta glass-btn">Learn More</a>
+      </div>
     </div>
     <a href="#symposium" class="hero-scroll-cue" aria-label="Scroll to explore">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -79,23 +126,6 @@
         </div>
       </div>
       <p class="symposium-tagline">Not just another event — it's a movement. A bold international gathering<br>bringing you the best horsemen who put the horse first.</p>
-    </div>
-
-    <!-- Video Showcase -->
-    <div class="video-showcase reveal">
-      <div class="video-frame" id="symposium-video">
-        <video id="promo-video" controls muted loop playsinline preload="auto">
-          <source src="media/coming_soon.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay" id="video-overlay">
-          <button class="play-btn" id="play-btn" aria-label="Play video">
-            <svg viewBox="0 0 24 24" fill="none">
-              <polygon points="6,3 20,12 6,21" fill="currentColor"/>
-            </svg>
-          </button>
-          <span class="video-caption">Watch the Preview</span>
-        </div>
-      </div>
     </div>
 
     <!-- Presenter Grid -->
@@ -243,23 +273,27 @@
     </div>
   </div>
 
-  <!-- ===== FOUNDER ===== -->
-  <section class="founder-section reveal" id="about">
-    <div class="founder-image">
-      <img src="images/donna_about.jpg" alt="Donna Blem, Founder of Evolution Horsemanship">
-    </div>
-    <div class="founder-text">
-      <div class="decorative-quote">"</div>
-      <blockquote>We are constantly evolving personally, professionally, as families and as businesses. It is critical that we take the time to embrace the goodness in our lives, get grounded, deeply connected as well as learn to adjust our life and business path to fit who we have become and where we now see ourselves going.</blockquote>
-      <div class="founder-name">Donna Blem</div>
-      <div class="founder-title">Founder, Evolution Horsemanship</div>
-      <a href="#" class="bio-link">Read Full Bio →</a>
+  <!-- ===== HEARTS IN HARMONY TEASER ===== -->
+  <section class="therapeutic-section">
+    <img src="images/ranch_horses_full.jpg" alt="" class="section-image-bg">
+    <div class="therapeutic-overlay"></div>
+    <div class="therapeutic-inner">
+      <div class="therapeutic-text glass-card reveal">
+        <div class="label">Community Impact</div>
+        <h2>Hearts in Harmony</h2>
+        <p>A specialized equine therapy program bringing the healing power of horses to those navigating trauma, grief, and life transitions.</p>
+        <div class="sponsor-box">
+          <h4>Sponsor a Healing Session</h4>
+          <p>Help us make transformational equine therapy accessible. Local businesses and individuals can sponsor a session for a community member in need.</p>
+          <a href="#" class="btn btn-outline"><span>Become a Sponsor</span> <span class="arrow">→</span></a>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ===== SPONSORS ===== -->
-  <section class="affiliate-section reveal" id="sponsorships">
-    <div class="affiliate-inner">
+  <section class="affiliate-section" id="sponsorships">
+    <div class="affiliate-inner reveal">
       <div class="label">Our Partners & Sponsors</div>
       <div class="affiliate-content">
         <a href="https://qualityhorseman.net/" target="_blank" rel="noopener">
@@ -282,6 +316,86 @@
         <span>Brave Horse</span>
         <span class="sponsor-dot"></span>
         <span>The Horse Talk Show with Louisa Barton</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== THE SANCTUARY ===== -->
+  <section class="sanctuary-section" id="ranch">
+    <div class="sanctuary-inner equestrian-frame reveal">
+      <div class="sanctuary-content">
+        <div class="label">The Sanctuary</div>
+        <h2>The 55-Acre Ranch</h2>
+        <div class="decorative-quote" style="margin-top:0;">"</div>
+        <blockquote class="sanctuary-quote">When you learn the language of the horse you get to the horse's mind. When you work with the horse's mind you win their hearts.</blockquote>
+        <p>Located in Ocala, Florida—the Horse Capital of the World—Evolution Horsemanship is more than a venue. Our 55-acre ranch is a dedicated environment designed to strip away distractions and foster true connection. From ancient live oaks draped in Spanish moss to limestone-rich pastures, every acre is built to honor the nature of the horse and facilitate transformational learning.</p>
+        
+        <a href="#" class="btn btn-outline" style="margin-top: var(--space-sm);"><span>Explore the Grounds</span> <span class="arrow">→</span></a>
+      </div>
+      <div class="sanctuary-visual">
+        <div class="visual-stack-anchor">
+          <img src="images/donna_training.jpg" alt="Premium Boarding Pastures">
+          <div class="anchor-badge">
+            <span class="badge-title">Premium Boarding</span>
+            <span class="badge-sub">Holistic & Pasture-Based</span>
+          </div>
+        </div>
+        <div class="ranch-experience-mockup">
+          <div class="ranch-main-view">
+            <img src="images/hero_trees_full.png" alt="Evolution Horsemanship 55-Acre Ranch in Ocala Florida">
+            <div class="ranch-interactive-overlay">
+              <div class="ranch-map-pin">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div class="pin-pulse"></div>
+              </div>
+              <div class="ranch-mock-ui">
+                <div class="mock-ui-header">
+                  <span class="mock-title">Interactive Ranch Tour</span>
+                  <span class="mock-subtitle">Ocala, Florida</span>
+                </div>
+                <div class="mock-ui-stats">
+                  <div class="mock-stat"><strong>55</strong> <span>Acres</span></div>
+                  <div class="mock-stat"><strong>14</strong> <span>Pastures</span></div>
+                  <div class="mock-stat"><strong>2</strong> <span>Arenas</span></div>
+                </div>
+                <button class="mock-ui-btn">Enter Experience</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Gallery Expansion -->
+    <div class="sanctuary-gallery">
+      <div class="gallery-grid">
+        <div class="gallery-item item-main reveal">
+          <img src="images/donna_lifestyle.jpg" alt="Expansive pastures in Ocala">
+        </div>
+        <div class="gallery-item item-sub reveal" style="transition-delay: 0.1s;">
+          <img src="images/horsemanship_training.jpg" alt="Premium boarding facility">
+        </div>
+        <div class="gallery-item item-sub reveal" style="transition-delay: 0.2s;">
+          <img src="images/ranch_horses.jpg" alt="Horses at Evolution Horsemanship">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== THE VISIONARY (DONNA BLEM) ===== -->
+  <section class="visionary-section" id="about">
+    <div class="visionary-split reveal">
+      <div class="visionary-image">
+        <img src="images/donna_quality_horseman.jpg" alt="Donna Blem, Founder of Evolution Horsemanship">
+      </div>
+      <div class="visionary-content">
+        <div class="label">The Visionary</div>
+        <h2>Donna Blem</h2>
+        <h3 class="visionary-subtitle">Creator of True Horsemanship</h3>
+        <p class="drop-cap">For over three decades, Donna Blem has been bridging the gap between human intent and equine instinct. She doesn't just train horses; she decodes their language. Her life's work is centered around a profound, unshakable belief: that the horse comes first, always.</p>
+        <p>At the 55-acre ranch in Ocala, Donna brings this philosophy to life through her signature "True Horsemanship" program. It's a sanctuary not just for the animals, but for the humans seeking a deeper, more authentic connection.</p>
+        <div class="signature">Donna Blem</div>
+        <a href="#services" class="btn btn-outline" style="margin-top: var(--space-md);"><span>Explore Her Methods</span> <span class="arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -365,8 +479,17 @@
 
     // Header shrink on scroll
     const header = document.getElementById('header');
+    const bgmPlayer = document.getElementById('bgm-player');
     window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 60);
+      const isScrolled = window.scrollY > 60;
+      header.classList.toggle('scrolled', isScrolled);
+      if (bgmPlayer) {
+        if (window.scrollY > 150) {
+          bgmPlayer.classList.add('fade-out');
+        } else {
+          bgmPlayer.classList.remove('fade-out');
+        }
+      }
     }, { passive: true });
 
     // Mobile nav toggle
@@ -398,7 +521,56 @@
         videoOverlay.classList.add('hidden');
       });
     }
-  </script>
 
+    // --- BGM PLAYER LOGIC ---
+    let ytPlayer;
+    let bgmPlaying = false;
+    const bgmBtn = document.getElementById('bgm-btn');
+    const playIcon = document.querySelector('.bgm-icon-play');
+    const pauseIcon = document.querySelector('.bgm-icon-pause');
+    const waveform = document.getElementById('bgm-waveform');
+
+    window.onYouTubeIframeAPIReady = function() {
+      ytPlayer = new YT.Player('yt-player', {
+        height: '1',
+        width: '1',
+        videoId: 'T2pN1htmxD8',
+        playerVars: {
+          'playsinline': 1,
+          'controls': 0,
+          'showinfo': 0,
+          'rel': 0,
+          'iv_load_policy': 3,
+          'autoplay': 0
+        },
+        events: {
+          'onStateChange': function(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+              bgmPlaying = true;
+              playIcon.style.display = 'none';
+              pauseIcon.style.display = 'block';
+              waveform.classList.add('playing');
+            } else {
+              bgmPlaying = false;
+              playIcon.style.display = 'block';
+              pauseIcon.style.display = 'none';
+              waveform.classList.remove('playing');
+            }
+          }
+        }
+      });
+    };
+
+    bgmBtn.addEventListener('click', () => {
+      if (!ytPlayer || !ytPlayer.getPlayerState) return;
+      if (bgmPlaying) {
+        ytPlayer.pauseVideo();
+      } else {
+        ytPlayer.playVideo();
+      }
+    });
+
+  </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
