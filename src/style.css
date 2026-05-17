@@ -476,7 +476,7 @@ img {
 .section-intro {
   text-align: center;
   padding: var(--space-2xl) 0 var(--space-lg);
-  background: var(--cream-warm);
+  background: var(--stone); /* Distinct background color */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -518,29 +518,19 @@ img {
 }
 
 .section-intro p {
-  font-family: var(--font-body);
-  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
-  font-weight: 400;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-style: italic;
   color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 560px;
-  padding: 0 24px;
-  margin: var(--space-xs) auto 0;
+  max-width: 600px;
+  margin: var(--space-sm) auto 0;
+  line-height: 1.5;
 }
 
-/* ---- SERVICE ROWS ---- */
+/* ---- SERVICES GRID ---- */
 .service-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 520px;
-  border-top: 1px solid rgba(176, 160, 132, 0.15);
-}
-
-/* Alternate tint on even rows for visual rhythm */
-.service-row:nth-child(even) {
-  background: #f0ebe2;
-}
-.service-row:nth-child(odd) {
   background: var(--cream-warm);
 }
 
@@ -555,6 +545,8 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center; /* Center horizontally */
+  text-align: center; /* Center text */
   padding: var(--space-lg) clamp(48px, 6vw, 96px);
 }
 
@@ -581,6 +573,7 @@ img {
   color: var(--text-secondary);
   margin-bottom: 12px;
   line-height: 1.8;
+  max-width: 500px; /* Keep readability when centered */
 }
 
 .service-text .quote {
@@ -588,15 +581,17 @@ img {
   font-style: italic;
   font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   color: var(--text-muted);
-  padding-left: 20px;
-  border-left: 2px solid var(--gold);
+  padding: var(--space-sm) 0;
   margin: var(--space-sm) 0;
   line-height: 1.7;
+  text-align: center;
+  max-width: 80%;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   font-family: var(--font-body);
   font-size: var(--fs-small);
