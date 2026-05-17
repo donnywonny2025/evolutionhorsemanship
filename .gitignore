@@ -1,0 +1,16 @@
+.tmp/
+.DS_Store
+*.pyc
+__pycache__/
+reference/
+node_modules/
+.gemini/
+Premiere/
+Video/
+*.prproj
+*.prin
+SKILLS/
+execution/
+KNOWLEDGE_BASE/
+AGENTS.md
+GEMINI.md
