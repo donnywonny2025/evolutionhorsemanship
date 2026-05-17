@@ -78,10 +78,18 @@
 
     <!-- Video Showcase -->
     <div class="video-showcase reveal">
-      <div class="video-frame">
-        <video autoplay muted loop playsinline>
+      <div class="video-frame" id="symposium-video">
+        <video id="promo-video" muted loop playsinline preload="auto">
           <source src="media/coming_soon.mp4" type="video/mp4">
         </video>
+        <div class="video-overlay" id="video-overlay">
+          <button class="play-btn" id="play-btn" aria-label="Play video">
+            <svg viewBox="0 0 24 24" fill="none">
+              <polygon points="6,3 20,12 6,21" fill="currentColor"/>
+            </svg>
+          </button>
+          <span class="video-caption">Watch the Preview</span>
+        </div>
       </div>
     </div>
 
@@ -340,6 +348,25 @@
       mainNav.classList.toggle('open');
       navToggle.classList.toggle('open');
     });
+
+    // Video play button
+    const promoVideo = document.getElementById('promo-video');
+    const videoOverlay = document.getElementById('video-overlay');
+    if (promoVideo && videoOverlay) {
+      videoOverlay.addEventListener('click', () => {
+        promoVideo.play();
+        videoOverlay.classList.add('hidden');
+      });
+      promoVideo.addEventListener('click', () => {
+        if (promoVideo.paused) {
+          promoVideo.play();
+          videoOverlay.classList.add('hidden');
+        } else {
+          promoVideo.pause();
+          videoOverlay.classList.remove('hidden');
+        }
+      });
+    }
   </script>
 
 </body>
