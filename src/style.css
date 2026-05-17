@@ -258,7 +258,7 @@ img {
 /* Dark sections override back to their own backgrounds */
 .hero ~ .symposium-section { background: var(--forest-deep); }
 .hero ~ .affiliate-section { background: #000; }
-.hero ~ .mailing-section { background: var(--forest-deep); }
+.hero ~ .contact-section { background: var(--forest-deep); }
 .hero ~ .site-footer { background: var(--forest-deep); }
 
 .hero-bg {
@@ -399,11 +399,22 @@ img {
 /* ---- SECTION INTRO ---- */
 .section-intro {
   text-align: center;
-  padding: var(--space-xl) 0 var(--space-md);
+  padding: var(--space-2xl) 0 var(--space-lg);
   background: var(--cream-warm);
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Decorative gold line above section intro labels */
+.section-intro .label::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto var(--space-sm);
+  opacity: 0.6;
 }
 
 .section-intro .label {
@@ -440,6 +451,15 @@ img {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 520px;
+  border-top: 1px solid rgba(176, 160, 132, 0.15);
+}
+
+/* Alternate tint on even rows for visual rhythm */
+.service-row:nth-child(even) {
+  background: #f0ebe2;
+}
+.service-row:nth-child(odd) {
+  background: var(--cream-warm);
 }
 
 .service-row.reverse .service-text {
@@ -698,15 +718,15 @@ img {
 }
 
 /* ---- MAILING LIST ---- */
-.mailing-section {
+/* ---- CONTACT SECTION ---- */
+.contact-section {
   background: var(--forest-deep);
-  padding: var(--space-xl) 48px;
-  text-align: center;
+  padding: var(--space-xl) 0;
   position: relative;
   overflow: hidden;
 }
 
-.mailing-section::before {
+.contact-section::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -717,7 +737,23 @@ img {
   pointer-events: none;
 }
 
-.mailing-section .label {
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 64px);
+  position: relative;
+}
+
+.contact-info {
+  padding-right: clamp(32px, 4vw, 64px);
+  border-right: 1px solid rgba(181, 149, 90, 0.15);
+}
+
+.contact-info .label,
+.contact-form-wrap .label {
   font-family: var(--font-body);
   font-size: var(--fs-label);
   font-weight: 500;
@@ -725,34 +761,72 @@ img {
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: var(--space-xs);
-  position: relative;
 }
 
-.mailing-section h2 {
+.contact-info h2 {
   font-family: var(--font-display);
-  font-size: var(--fs-display);
+  font-size: var(--fs-h2);
   font-weight: 400;
   color: var(--cream);
   margin-bottom: var(--space-sm);
-  position: relative;
 }
 
-.mailing-section p {
+.contact-info p {
   font-family: var(--font-body);
-  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-  font-weight: 400;
-  color: rgba(240, 235, 228, 0.7);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  color: rgba(240, 235, 228, 0.6);
   line-height: 1.7;
   margin-bottom: var(--space-md);
-  max-width: 520px;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: rgba(240, 235, 228, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a.contact-item:hover {
+  color: var(--gold-light);
+}
+
+.contact-item svg {
+  flex-shrink: 0;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+.contact-form-wrap {
+  padding-left: clamp(32px, 4vw, 64px);
+}
+
+.contact-form-wrap h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: var(--space-xs);
+}
+
+.contact-form-wrap p {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  color: rgba(240, 235, 228, 0.55);
+  line-height: 1.7;
+  margin-bottom: var(--space-md);
 }
 
 .mailing-form {
-  max-width: 420px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -792,7 +866,7 @@ img {
   border: none;
   cursor: pointer;
   margin-top: 8px;
-  align-self: center;
+  align-self: flex-start;
   transition: all var(--duration-fast) var(--ease-out);
 }
 
@@ -1275,10 +1349,24 @@ img {
   }
 
   .section-intro,
-  .mailing-section,
+  .contact-section,
   .affiliate-section {
     padding-left: 24px;
     padding-right: 24px;
+  }
+
+  .contact-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .contact-info {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid rgba(181, 149, 90, 0.15);
+    padding-bottom: var(--space-md);
+  }
+  .contact-form-wrap {
+    padding-left: 0;
   }
 
   .symposium-header { padding: 0 24px var(--space-md); }
