@@ -75,6 +75,7 @@
       <div class="anim-wrap wrap-3">
         <div class="video-showcase hero-video-box">
           <div class="video-frame" id="symposium-video">
+            <div class="video-loader" id="video-loader"></div>
             <video id="promo-video" controls muted loop playsinline preload="auto">
               <source src="media/coming_soon.mp4" type="video/mp4">
             </video>
@@ -500,9 +501,10 @@
       navToggle.classList.toggle('open');
     });
 
-    // Video play button
     const promoVideo = document.getElementById('promo-video');
     const videoOverlay = document.getElementById('video-overlay');
+    const videoLoader = document.getElementById('video-loader');
+    
     if (promoVideo && videoOverlay) {
       // Hide native controls initially (overlay covers them)
       promoVideo.removeAttribute('controls');
@@ -519,6 +521,17 @@
       });
       promoVideo.addEventListener('play', () => {
         videoOverlay.classList.add('hidden');
+      });
+
+      // Mobile loader logic
+      promoVideo.addEventListener('waiting', () => {
+        if (videoLoader) videoLoader.style.display = 'block';
+      });
+      promoVideo.addEventListener('playing', () => {
+        if (videoLoader) videoLoader.style.display = 'none';
+      });
+      promoVideo.addEventListener('canplay', () => {
+        if (videoLoader) videoLoader.style.display = 'none';
       });
     }
 
