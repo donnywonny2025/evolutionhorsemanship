@@ -545,50 +545,22 @@
     // Initialize Vimeo Player
     const vimeoContainer = document.getElementById('hero-vimeo-player');
     if (vimeoContainer) {
-      vimeoContainer.style.position = 'relative'; // Ensure overlay is contained
-      // Create a transparent overlay to catch the first click to unmute
-      const unmuteOverlay = document.createElement('div');
-      unmuteOverlay.style.position = 'absolute';
-      unmuteOverlay.style.top = '0';
-      unmuteOverlay.style.left = '0';
-      unmuteOverlay.style.width = '100%';
-      unmuteOverlay.style.height = '100%';
-      unmuteOverlay.style.zIndex = '10';
-      unmuteOverlay.style.cursor = 'pointer';
-      vimeoContainer.appendChild(unmuteOverlay);
+      vimeoContainer.style.position = 'relative'; // Ensure standard positioning
 
       vimeoPlayer = new Vimeo.Player(vimeoContainer, {
         id: 1194809710,
-        autoplay: true,
+        autoplay: false,
         loop: true,
-        muted: true,
+        muted: false,
         controls: true,
         background: false,
         playsinline: true,
         autopause: false
       });
 
-      // When the user clicks the video, unmute it, show controls, and remove overlay
-      unmuteOverlay.addEventListener('click', function() {
-        vimeoPlayer.setMuted(false);
-        vimeoPlayer.setVolume(1);
-        vimeoPlayer.play();
-        unmuteOverlay.remove(); // Remove overlay so they can interact with video natively
-        
-        // Pause background music
-        if (ytPlayer && bgmPlaying) {
-          ytPlayer.pauseVideo();
-        }
-      });
-
-      // Pause BGM if Vimeo player is played or unmuted (backup)
+      // Pause BGM if Vimeo player is played
       vimeoPlayer.on('play', () => {
         if (ytPlayer && bgmPlaying) {
-          ytPlayer.pauseVideo();
-        }
-      });
-      vimeoPlayer.on('volumechange', (data) => {
-        if (data.volume > 0 && ytPlayer && bgmPlaying) {
           ytPlayer.pauseVideo();
         }
       });
