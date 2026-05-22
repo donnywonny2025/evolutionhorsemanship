@@ -345,12 +345,12 @@ img {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
-/* Scale iframe to crop YouTube top/bottom chrome */
+/* Scale iframe to crop YouTube top chrome only */
 .hero-video-box .video-frame iframe {
   position: absolute;
-  top: -1%; left: -1%;
-  width: 102%;
-  height: 102%;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
 }
 /* Hide the overlay when video is playing, show pause button only on hover */
 .hero-video-box .video-overlay {
