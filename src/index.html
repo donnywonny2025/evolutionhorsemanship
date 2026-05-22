@@ -71,11 +71,11 @@
       <div class="anim-wrap wrap-2"><h1>The Horseman<br>Symposium</h1></div>
       <div class="hero-divider"></div>
       
-      <!-- YouTube Promo Video -->
+      <!-- Vimeo Promo Video -->
       <div class="anim-wrap wrap-3">
         <div class="video-showcase hero-video-box">
           <div class="video-frame" id="symposium-video">
-            <div id="hero-yt-player"></div>
+            <div id="hero-vimeo-player"></div>
           </div>
         </div>
       </div>
@@ -489,6 +489,7 @@
   </footer>
 
   <!-- ===== SCRIPTS ===== -->
+  <script src="https://player.vimeo.com/api/player.js"></script>
   <script>
     // Scroll reveal — IntersectionObserver with stagger
     const reveals = document.querySelectorAll('.reveal');
@@ -525,10 +526,13 @@
       navToggle.classList.toggle('open');
     });
 
-    // --- HERO YOUTUBE PROMO VIDEO ---
-    let heroYtPlayer;
+    // --- HERO VIMEO PROMO VIDEO ---
+    let vimeoPlayer;
     let featuredPlayer;
     let heroPlaying = false;
+    let heroMuted = true;
+    let isPlaying = false;
+    let duration = 0;
 
     // --- BGM PLAYER LOGIC ---
     let ytPlayer;
@@ -538,34 +542,33 @@
     const pauseIcon = document.querySelector('.bgm-icon-pause');
     const waveform = document.getElementById('bgm-waveform');
 
-    window.onYouTubeIframeAPIReady = function() {
-      // Hero promo video — full controls, no autoplay, no loop
-      heroYtPlayer = new YT.Player('hero-yt-player', {
-        width: '100%',
-        height: '100%',
-        videoId: '-NZt33A_i7Q',
-        playerVars: {
-          'playsinline': 1,
-          'controls': 1,
-          'rel': 0,
-          'modestbranding': 1,
-          'iv_load_policy': 3,
-          'autoplay': 0
-        },
-        events: {
-          'onStateChange': function(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-              heroPlaying = true;
-              // Pause BGM when hero video plays
-              if (ytPlayer && bgmPlaying) {
-                ytPlayer.pauseVideo();
-              }
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-              heroPlaying = false;
-            }
-          }
+    // Initialize Vimeo Player
+    const vimeoContainer = document.getElementById('hero-vimeo-player');
+    if (vimeoContainer) {
+      vimeoPlayer = new Vimeo.Player(vimeoContainer, {
+        id: 1194809710,
+        autoplay: true,
+        loop: true,
+        muted: true,
+        controls: true,
+        playsinline: true,
+        title: false,
+        byline: false,
+        portrait: false
+      });
+
+      // Pause BGM if Vimeo player is played or unmuted
+      vimeoPlayer.on('play', () => {
+        if (ytPlayer && bgmPlaying) {
+          ytPlayer.pauseVideo();
         }
       });
+      vimeoPlayer.on('volumechange', (data) => {
+        if (data.volume > 0 && ytPlayer && bgmPlaying) {
+          ytPlayer.pauseVideo();
+        }
+      });
+    }
 
       // BGM player
       ytPlayer = new YT.Player('yt-player', {
