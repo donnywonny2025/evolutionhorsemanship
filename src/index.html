@@ -557,6 +557,13 @@
         playsinline: true,
         autopause: false
       });
+      
+      // Force play if browser allows, otherwise it will safely fall back to showing the play button
+      vimeoPlayer.ready().then(() => {
+        vimeoPlayer.play().catch(() => {
+            console.log("Autoplay blocked by browser policy. Play button is ready.");
+        });
+      });
 
       // Pause BGM if Vimeo player is played
       vimeoPlayer.on('play', () => {

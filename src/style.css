@@ -346,7 +346,8 @@ img {
   overflow: hidden;
 }
 /* Scale iframe to crop YouTube top chrome only */
-.hero-video-box .video-frame iframe {
+.hero-video-box .video-frame iframe,
+#hero-vimeo-player {
   position: absolute;
   top: 0; left: 0;
   width: 100%;
