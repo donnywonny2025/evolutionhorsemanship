@@ -76,18 +76,6 @@
         <div class="video-showcase hero-video-box">
           <div class="video-frame" id="symposium-video">
             <div id="hero-yt-player"></div>
-            <div class="video-overlay" id="video-overlay">
-              <button class="hero-yt-toggle" id="hero-yt-toggle" aria-label="Play video">
-                <svg class="hero-yt-play-icon" viewBox="0 0 24 24" fill="none">
-                  <polygon points="6,3 20,12 6,21" fill="currentColor"/>
-                </svg>
-                <svg class="hero-yt-pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-                  <rect x="5" y="3" width="4" height="18"/>
-                  <rect x="15" y="3" width="4" height="18"/>
-                </svg>
-              </button>
-              <span class="video-caption" style="color: var(--cream);">Watch the Preview</span>
-            </div>
           </div>
         </div>
       </div>
@@ -541,40 +529,6 @@
     let heroYtPlayer;
     let featuredPlayer;
     let heroPlaying = false;
-    const heroToggle = document.getElementById('hero-yt-toggle');
-    const heroPlayIcon = document.querySelector('.hero-yt-play-icon');
-    const heroPauseIcon = document.querySelector('.hero-yt-pause-icon');
-    const heroOverlay = document.getElementById('video-overlay');
-    const heroCaption = heroOverlay ? heroOverlay.querySelector('.video-caption') : null;
-
-    function updateHeroToggle(playing) {
-      heroPlaying = playing;
-      if (heroPlayIcon) heroPlayIcon.style.display = playing ? 'none' : 'block';
-      if (heroPauseIcon) heroPauseIcon.style.display = playing ? 'block' : 'none';
-      if (heroCaption) heroCaption.textContent = playing ? 'Pause' : 'Watch the Preview';
-      // Hide overlay when playing so native YouTube controls are accessible
-      if (heroOverlay) {
-        if (playing) {
-          heroOverlay.style.pointerEvents = 'none';
-          heroOverlay.style.opacity = '0';
-        } else {
-          heroOverlay.style.pointerEvents = '';
-          heroOverlay.style.opacity = '';
-        }
-      }
-    }
-
-    if (heroToggle) {
-      heroToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (!heroYtPlayer || !heroYtPlayer.getPlayerState) return;
-        if (heroPlaying) {
-          heroYtPlayer.pauseVideo();
-        } else {
-          heroYtPlayer.playVideo();
-        }
-      });
-    }
 
     // --- BGM PLAYER LOGIC ---
     let ytPlayer;
@@ -604,19 +558,21 @@
         },
         events: {
           'onReady': function(event) {
-            // Muted autoplay
+            // Muted autoplay — silent preview on load
             event.target.mute();
             event.target.playVideo();
           },
           'onStateChange': function(event) {
             if (event.data === YT.PlayerState.PLAYING) {
-              updateHeroToggle(true);
-              // If hero has audio (unmuted), pause BGM
+              heroPlaying = true;
+              // If hero is unmuted, pause BGM
               if (!event.target.isMuted() && ytPlayer && bgmPlaying) {
                 ytPlayer.pauseVideo();
               }
             } else if (event.data === YT.PlayerState.PAUSED) {
-              updateHeroToggle(false);
+              // User paused — when they resume, unmute so audio plays
+              heroPlaying = false;
+              event.target.unMute();
             } else if (event.data === YT.PlayerState.ENDED) {
               event.target.playVideo();
             }

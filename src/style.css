@@ -352,15 +352,8 @@ img {
   width: 100%;
   height: 100%;
 }
-/* Hide the overlay when video is playing, show pause button only on hover */
-.hero-video-box .video-overlay {
-  background: rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.hero-video-box .video-frame:hover .video-overlay {
-  opacity: 1;
-}
+
+
 
 .hero-content .eyebrow {
   font-family: var(--font-body);
