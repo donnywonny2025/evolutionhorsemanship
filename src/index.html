@@ -8,7 +8,7 @@
   <meta property="og:title" content="Evolution Horsemanship — Ocala, Florida">
   <meta property="og:description" content="Home of The Horseman Symposium. Find true connection with yourself, your horse, and others.">
   <meta property="og:type" content="website">
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=22">
   <script>
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
@@ -71,18 +71,19 @@
       <div class="anim-wrap wrap-2"><h1>The Horseman<br>Symposium</h1></div>
       <div class="hero-divider"></div>
       
-      <!-- Video Showcase moved to hero -->
+      <!-- YouTube Promo Video -->
       <div class="anim-wrap wrap-3">
         <div class="video-showcase hero-video-box">
           <div class="video-frame" id="symposium-video">
-            <div class="video-loader" id="video-loader"></div>
-            <video id="promo-video" controls muted loop playsinline preload="auto">
-              <source src="media/coming_soon.mp4" type="video/mp4">
-            </video>
+            <div id="hero-yt-player"></div>
             <div class="video-overlay" id="video-overlay">
-              <button class="play-btn" id="play-btn" aria-label="Play video">
-                <svg viewBox="0 0 24 24" fill="none">
+              <button class="hero-yt-toggle" id="hero-yt-toggle" aria-label="Play video">
+                <svg class="hero-yt-play-icon" viewBox="0 0 24 24" fill="none">
                   <polygon points="6,3 20,12 6,21" fill="currentColor"/>
+                </svg>
+                <svg class="hero-yt-pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                  <rect x="5" y="3" width="4" height="18"/>
+                  <rect x="15" y="3" width="4" height="18"/>
                 </svg>
               </button>
               <span class="video-caption" style="color: var(--cream);">Watch the Preview</span>
@@ -399,6 +400,39 @@
         <a href="#services" class="btn btn-outline" style="margin-top: var(--space-md);"><span>Explore Her Methods</span> <span class="arrow">→</span></a>
       </div>
     </div>
+
+    <!-- Featured Video Showcase -->
+    <div class="featured-video-showcase reveal">
+      <div class="featured-video-inner">
+        <div class="featured-video-header">
+          <div class="label">Featured Interview</div>
+          <h3>Powerful Success Stories</h3>
+          <p>Donna shares real-world results from her work with horses and light therapy — featured on Health Made Simple.</p>
+        </div>
+        <div class="featured-video-player">
+          <div class="featured-video-glow"></div>
+          <div class="featured-video-frame">
+            <div id="featured-yt-player"></div>
+            <div class="featured-video-overlay" id="featured-video-overlay">
+              <button class="featured-play-btn" id="featured-play-btn" aria-label="Play interview">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <polygon points="6,3 20,12 6,21" fill="currentColor"/>
+                </svg>
+              </button>
+              <span class="featured-video-label">Watch Interview</span>
+            </div>
+          </div>
+        </div>
+        <div class="featured-video-meta">
+          <span class="fv-channel">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.4 31.4 0 000 12a31.4 31.4 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.4 31.4 0 0024 12a31.4 31.4 0 00-.5-5.8z"/><polygon points="9.75,15.02 15.5,12 9.75,8.98" fill="#fff"/></svg>
+            Health Made Simple
+          </span>
+          <span class="fv-divider">•</span>
+          <span class="fv-topic">Equine Light Therapy & Healing</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ===== CONTACT & MAILING ===== -->
@@ -453,8 +487,10 @@
       </div>
       <div class="footer-connect">
         <h4>Connect</h4>
-        <a href="https://www.facebook.com/groups/1515210098806972/" target="_blank" rel="noopener">Facebook Community</a>
-        <a href="https://www.facebook.com/people/Evolution-Horsemanship/100063788042424/" target="_blank" rel="noopener">Facebook Page</a>
+        <a href="https://www.facebook.com/evolutionhorsemanship" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/evolutionhorsemanship" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.youtube.com/evolutionhorsemanship" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.tiktok.com/@evolutionhorsemanship" target="_blank" rel="noopener">TikTok</a>
         <a href="mailto:donna@evolutionhorsemanship.com">Email Donna</a>
       </div>
     </div>
@@ -501,37 +537,31 @@
       navToggle.classList.toggle('open');
     });
 
-    const promoVideo = document.getElementById('promo-video');
-    const videoOverlay = document.getElementById('video-overlay');
-    const videoLoader = document.getElementById('video-loader');
-    
-    if (promoVideo && videoOverlay) {
-      // Hide native controls initially (overlay covers them)
-      promoVideo.removeAttribute('controls');
+    // --- HERO YOUTUBE PROMO VIDEO ---
+    let heroYtPlayer;
+    let heroPlaying = false;
+    const heroToggle = document.getElementById('hero-yt-toggle');
+    const heroPlayIcon = document.querySelector('.hero-yt-play-icon');
+    const heroPauseIcon = document.querySelector('.hero-yt-pause-icon');
+    const heroOverlay = document.getElementById('video-overlay');
+    const heroCaption = heroOverlay ? heroOverlay.querySelector('.video-caption') : null;
 
-      videoOverlay.addEventListener('click', () => {
-        promoVideo.setAttribute('controls', '');
-        promoVideo.play();
-        videoOverlay.classList.add('hidden');
-      });
+    function updateHeroToggle(playing) {
+      heroPlaying = playing;
+      if (heroPlayIcon) heroPlayIcon.style.display = playing ? 'none' : 'block';
+      if (heroPauseIcon) heroPauseIcon.style.display = playing ? 'block' : 'none';
+      if (heroCaption) heroCaption.textContent = playing ? 'Pause' : 'Watch the Preview';
+    }
 
-      // Show overlay again when video ends or is paused via native controls
-      promoVideo.addEventListener('pause', () => {
-        videoOverlay.classList.remove('hidden');
-      });
-      promoVideo.addEventListener('play', () => {
-        videoOverlay.classList.add('hidden');
-      });
-
-      // Mobile loader logic
-      promoVideo.addEventListener('waiting', () => {
-        if (videoLoader) videoLoader.style.display = 'block';
-      });
-      promoVideo.addEventListener('playing', () => {
-        if (videoLoader) videoLoader.style.display = 'none';
-      });
-      promoVideo.addEventListener('canplay', () => {
-        if (videoLoader) videoLoader.style.display = 'none';
+    if (heroToggle) {
+      heroToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!heroYtPlayer || !heroYtPlayer.getPlayerState) return;
+        if (heroPlaying) {
+          heroYtPlayer.pauseVideo();
+        } else {
+          heroYtPlayer.playVideo();
+        }
       });
     }
 
@@ -544,6 +574,42 @@
     const waveform = document.getElementById('bgm-waveform');
 
     window.onYouTubeIframeAPIReady = function() {
+      // Hero promo video
+      heroYtPlayer = new YT.Player('hero-yt-player', {
+        width: '100%',
+        height: '100%',
+        videoId: '-NZt33A_i7Q',
+        playerVars: {
+          'playsinline': 1,
+          'controls': 0,
+          'showinfo': 0,
+          'rel': 0,
+          'modestbranding': 1,
+          'iv_load_policy': 3,
+          'autoplay': 0,
+          'loop': 1,
+          'playlist': '-NZt33A_i7Q',
+          'mute': 1
+        },
+        events: {
+          'onReady': function(event) {
+            // Muted autoplay
+            event.target.mute();
+            event.target.playVideo();
+          },
+          'onStateChange': function(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+              updateHeroToggle(true);
+            } else if (event.data === YT.PlayerState.PAUSED) {
+              updateHeroToggle(false);
+            } else if (event.data === YT.PlayerState.ENDED) {
+              event.target.playVideo();
+            }
+          }
+        }
+      });
+
+      // BGM player
       ytPlayer = new YT.Player('yt-player', {
         height: '1',
         width: '1',
@@ -572,6 +638,43 @@
           }
         }
       });
+
+      // Featured interview video
+      var featuredPlayer = new YT.Player('featured-yt-player', {
+        width: '100%',
+        height: '100%',
+        videoId: 'u3whQ2Fl1eY',
+        playerVars: {
+          'playsinline': 1,
+          'controls': 0,
+          'showinfo': 0,
+          'rel': 0,
+          'modestbranding': 1,
+          'iv_load_policy': 3,
+          'autoplay': 0,
+          'start': 122
+        },
+        events: {
+          'onStateChange': function(event) {
+            var overlay = document.getElementById('featured-video-overlay');
+            if (event.data === YT.PlayerState.PLAYING) {
+              if (overlay) overlay.classList.add('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+              if (overlay) overlay.classList.remove('hidden');
+            }
+          }
+        }
+      });
+
+      // Featured play button
+      var featuredPlayBtn = document.getElementById('featured-play-btn');
+      if (featuredPlayBtn) {
+        featuredPlayBtn.addEventListener('click', function() {
+          if (featuredPlayer && featuredPlayer.playVideo) {
+            featuredPlayer.playVideo();
+          }
+        });
+      }
     };
 
     bgmBtn.addEventListener('click', () => {
