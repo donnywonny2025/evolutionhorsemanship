@@ -362,7 +362,7 @@ img {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: transparent;
-  background: linear-gradient(90deg, rgba(181, 149, 90, 0.2) 0%, rgba(181, 149, 90, 0.2) 25%, rgba(181, 149, 90, 0.4) 40%, var(--gold-light) 50%, rgba(181, 149, 90, 0.4) 60%, rgba(181, 149, 90, 0.2) 75%, rgba(181, 149, 90, 0.2) 100%);
+  background: linear-gradient(90deg, rgba(181, 149, 90, 0.7) 0%, rgba(181, 149, 90, 0.7) 25%, rgba(181, 149, 90, 0.9) 40%, #FFF 50%, rgba(181, 149, 90, 0.9) 60%, rgba(181, 149, 90, 0.7) 75%, rgba(181, 149, 90, 0.7) 100%);
   background-size: 400% 100%;
   -webkit-background-clip: text;
   background-clip: text;
