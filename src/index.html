@@ -539,6 +539,7 @@
 
     // --- HERO YOUTUBE PROMO VIDEO ---
     let heroYtPlayer;
+    let featuredPlayer;
     let heroPlaying = false;
     const heroToggle = document.getElementById('hero-yt-toggle');
     const heroPlayIcon = document.querySelector('.hero-yt-play-icon');
@@ -551,6 +552,16 @@
       if (heroPlayIcon) heroPlayIcon.style.display = playing ? 'none' : 'block';
       if (heroPauseIcon) heroPauseIcon.style.display = playing ? 'block' : 'none';
       if (heroCaption) heroCaption.textContent = playing ? 'Pause' : 'Watch the Preview';
+      // Hide overlay when playing so native YouTube controls are accessible
+      if (heroOverlay) {
+        if (playing) {
+          heroOverlay.style.pointerEvents = 'none';
+          heroOverlay.style.opacity = '0';
+        } else {
+          heroOverlay.style.pointerEvents = '';
+          heroOverlay.style.opacity = '';
+        }
+      }
     }
 
     if (heroToggle) {
@@ -600,6 +611,10 @@
           'onStateChange': function(event) {
             if (event.data === YT.PlayerState.PLAYING) {
               updateHeroToggle(true);
+              // If hero has audio (unmuted), pause BGM
+              if (!event.target.isMuted() && ytPlayer && bgmPlaying) {
+                ytPlayer.pauseVideo();
+              }
             } else if (event.data === YT.PlayerState.PAUSED) {
               updateHeroToggle(false);
             } else if (event.data === YT.PlayerState.ENDED) {
@@ -640,13 +655,13 @@
       });
 
       // Featured interview video
-      var featuredPlayer = new YT.Player('featured-yt-player', {
+      featuredPlayer = new YT.Player('featured-yt-player', {
         width: '100%',
         height: '100%',
         videoId: 'u3whQ2Fl1eY',
         playerVars: {
           'playsinline': 1,
-          'controls': 0,
+          'controls': 1,
           'showinfo': 0,
           'rel': 0,
           'modestbranding': 1,
@@ -659,6 +674,10 @@
             var overlay = document.getElementById('featured-video-overlay');
             if (event.data === YT.PlayerState.PLAYING) {
               if (overlay) overlay.classList.add('hidden');
+              // Pause BGM when featured video plays
+              if (ytPlayer && bgmPlaying) {
+                ytPlayer.pauseVideo();
+              }
             } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
               if (overlay) overlay.classList.remove('hidden');
             }
