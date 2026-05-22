@@ -1277,31 +1277,6 @@ a.contact-item:hover {
   border: 0;
 }
 
-/* Hero YT toggle button */
-.hero-yt-toggle {
-  width: 72px;
-  height: 72px;
-  border: 2px solid rgba(250, 246, 240, 0.5);
-  border-radius: 50%;
-  background: rgba(26, 46, 31, 0.4);
-  color: var(--cream);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--duration-fast) var(--ease-out);
-  backdrop-filter: blur(4px);
-  padding: 0;
-}
-.hero-yt-toggle svg {
-  width: 28px;
-  height: 28px;
-}
-.hero-yt-toggle:hover {
-  background: rgba(181, 149, 90, 0.3);
-  border-color: var(--gold-light);
-  transform: scale(1.08);
-}
 
 .video-overlay {
   position: absolute;

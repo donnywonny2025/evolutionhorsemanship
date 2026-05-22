@@ -8,7 +8,7 @@
   <meta property="og:title" content="Evolution Horsemanship — Ocala, Florida">
   <meta property="og:description" content="Home of The Horseman Symposium. Find true connection with yourself, your horse, and others.">
   <meta property="og:type" content="website">
-  <link rel="stylesheet" href="style.css?v=22">
+  <link rel="stylesheet" href="style.css?v=23">
   <script>
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
@@ -539,7 +539,7 @@
     const waveform = document.getElementById('bgm-waveform');
 
     window.onYouTubeIframeAPIReady = function() {
-      // Hero promo video
+      // Hero promo video — full controls, no autoplay, no loop
       heroYtPlayer = new YT.Player('hero-yt-player', {
         width: '100%',
         height: '100%',
@@ -547,34 +547,21 @@
         playerVars: {
           'playsinline': 1,
           'controls': 1,
-          'showinfo': 0,
           'rel': 0,
           'modestbranding': 1,
           'iv_load_policy': 3,
-          'autoplay': 0,
-          'loop': 1,
-          'playlist': '-NZt33A_i7Q',
-          'mute': 1
+          'autoplay': 0
         },
         events: {
-          'onReady': function(event) {
-            // Muted autoplay — silent preview on load
-            event.target.mute();
-            event.target.playVideo();
-          },
           'onStateChange': function(event) {
             if (event.data === YT.PlayerState.PLAYING) {
               heroPlaying = true;
-              // If hero is unmuted, pause BGM
-              if (!event.target.isMuted() && ytPlayer && bgmPlaying) {
+              // Pause BGM when hero video plays
+              if (ytPlayer && bgmPlaying) {
                 ytPlayer.pauseVideo();
               }
-            } else if (event.data === YT.PlayerState.PAUSED) {
-              // User paused — when they resume, unmute so audio plays
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
               heroPlaying = false;
-              event.target.unMute();
-            } else if (event.data === YT.PlayerState.ENDED) {
-              event.target.playVideo();
             }
           }
         }
