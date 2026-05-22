@@ -1,0 +1,8 @@
+[build]
+  publish = "src"
+  command = "echo 'Static site — no build needed'"
+
+[[redirects]]
+  from = "/evolutionhorsemanship/*"
+  to = "/:splat"
+  status = 200
